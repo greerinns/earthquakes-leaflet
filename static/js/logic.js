@@ -1,4 +1,12 @@
 // Create a function to create the map by taking in a layergroup array of markers called earthquakes
+function getColor(depth) {
+    return depth >= 100? 'green' :
+      depth >= 50 ? 'yellow' : 
+      depth >= 10 ? 'orange' :
+      depth >= 0 ? 'red' : 
+      depth = 'purple'
+}
+
 function createMap(earthquakes) {
 
 // Create the  background tile layer
@@ -29,6 +37,30 @@ function createMap(earthquakes) {
     collapsed: false
   }).addTo(map);
 // now we have a blank map with layer control
+
+
+//legend
+    var legend = L.control({position: 'bottomleft'});
+    legend.onAdd = function (map) {
+
+    var div = L.DomUtil.create('div', 'info legend');
+    var labels=["Categories"];
+    var categories = ["Depth >= 100","Depth >= 50","Depth >= 10","Depth >= 0", "Depth < 0"];
+    for (var i = 0; i < categories.length; i++) {
+
+            div.innerHTML += 
+            labels.push(
+                '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
+            (categories[i] ? categories[i] : '+'));
+
+        }
+        div.innerHTML = labels.join('<br>');
+    return div;
+    };
+    legend.addTo(map);
+//legend
+
+
 }  
 // Create a function to make the markers out of the JSON response
 function createMarkers(res) {
@@ -45,7 +77,11 @@ function createMarkers(res) {
         let eq = eqs[index];
 
         // For each eq, create a marker, and bind a popup with the station's name.
-        let eqMarker = L.marker([eq.geometry.coordinates[1], eq.geometry.coordinates[0]])
+        let eqMarker = L.circleMarker([eq.geometry.coordinates[1], eq.geometry.coordinates[0]], {
+            radius : eq.properties.mag * 2,
+            color  : getColor(eq.geometry.coordinates[2]),
+            opacity : 1
+          })
         .bindPopup("<h3>Location: " + eq.properties.place + "<h3><h3>Magnitude: " + eq.properties.mag + "</h3>");
 
         // Add the marker to the bikeMarkers array.
