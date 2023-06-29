@@ -6,6 +6,13 @@ function getColor(depth) {
       depth >= 0 ? 'red' : 
       depth = 'purple'
 }
+function getCatColor(label) {
+    return label == "Depth >= 100"? 'green' :
+      label == "Depth >= 50"? 'yellow' : 
+      label == "Depth >= 10" ? 'orange' :
+      label == "Depth >= 0" ? 'red' : 
+      label = 'purple'
+}
 
 function createMap(earthquakes) {
 
@@ -40,7 +47,7 @@ function createMap(earthquakes) {
 
 
 //legend
-    var legend = L.control({position: 'bottomleft'});
+var legend = L.control({position: 'bottomleft'});
     legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
@@ -48,20 +55,18 @@ function createMap(earthquakes) {
     var categories = ["Depth >= 100","Depth >= 50","Depth >= 10","Depth >= 0", "Depth < 0"];
     for (var i = 0; i < categories.length; i++) {
 
-            div.innerHTML += 
-            labels.push(
-                '<i class="circle" style="background:' + getColor(categories[i]) + '"></i> ' +
-            (categories[i] ? categories[i] : '+'));
+            div.innerHTML += labels.push(
+
+                '<p style="color:'+ getCatColor(categories[i]) +'">'+categories[i]+ '</p>'
+                )
 
         }
         div.innerHTML = labels.join('<br>');
     return div;
     };
     legend.addTo(map);
-//legend
-
-
-}  
+// //legend
+}
 // Create a function to make the markers out of the JSON response
 function createMarkers(res) {
 
@@ -82,7 +87,7 @@ function createMarkers(res) {
             color  : getColor(eq.geometry.coordinates[2]),
             opacity : 1
           })
-        .bindPopup("<h3>Location: " + eq.properties.place + "<h3><h3>Magnitude: " + eq.properties.mag + "</h3>");
+        .bindPopup("<h3>Location: " + eq.properties.place + "<h3>" + "<h3>Magnitude: " + eq.properties.mag + "</h3>" + "<h3>Depth: " + eq.geometry.coordinates[2] + "<h3>");
 
         // Add the marker to the bikeMarkers array.
         eqMarkers.push(eqMarker);
