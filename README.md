@@ -1,4 +1,4 @@
-# leaflet-challenge
+# earthquakes-leaflet
 This JavaScript file under logic js contains code through the html.index file to create an interactive map that displays earthquake data using Leaflet library. The map is populated with markers representing earthquakes, and each marker provides information about the location, magnitude, and depth of the earthquake.
 
 ## Prerequisites
