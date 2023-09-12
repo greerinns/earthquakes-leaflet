@@ -1,9 +1,7 @@
 # earthquakes-leaflet
-This JavaScript file under logic js contains code through the html.index file to create an interactive map that displays earthquake data using Leaflet library. The map is populated with markers representing earthquakes, and each marker provides information about the location, magnitude, and depth of the earthquake.
+The JavaScript file under logic creates an interactive map that displays earthquake data using Leaflet library. The map is populated with markers representing earthquakes, and each marker provides information about the location, magnitude, and depth of the earthquake.
 
 ## Prerequisites
-- Leaflet library: Make sure you have included the Leaflet library in your HTML file before using this JavaScript code.
-Usage
 - Include the Leaflet library in your HTML file.
 - Add a <div> element with the id "map-id" where you want the map to be displayed in the html.
 - Include this JavaScript file in your HTML file using the <script> tag.
@@ -44,7 +42,7 @@ This function is called after retrieving earthquake data from an API. It takes t
 - Finally, it calls the createMap function with a layer group created from the eqMarkers array.
 
 ## Data Source
-The earthquake data is retrieved from the USGS Earthquake Catalog API (https://earthquake.usgs.gov). The code performs an API call to retrieve the earthquake data in GeoJSON format.
+The earthquake data is retrieved from the USGS Earthquake Catalog API (https://earthquake.usgs.gov). We perform an API call to retrieve the earthquake data in GeoJSON format.
 
 
 
